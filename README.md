@@ -5,7 +5,7 @@ A small physics experiment where **TypeSafe AI's Jev** makes typed decisions tha
 Instead of using a hardcoded restitution value for every collision, the simulation sends the current collision state to Jev and uses its structured response to determine what happens next.
 
 ## Demo
----
+
 ![Jev Physics Lab Demo](demo/jev_physics_lab.gif)
 
 ---
@@ -20,7 +20,7 @@ For example:
 
 ```text
 A soap bubble collides with an ice rink.
-````
+```
 
 Jev then answers two typed questions:
 
@@ -122,13 +122,7 @@ The criteria are:
 2 → Nearly perfectly elastic
 ```
 
-The returned score is normalized to:
-
-```text
-0.0 → 1.0
-```
-
-and used as the restitution value in the physics simulation.
+The returned score (0–2) is divided by 2, clamped to `0.05 → 1.0`, and used as the restitution value in the physics simulation.
 
 ### 2. Sound — Choice
 
@@ -196,7 +190,7 @@ jev-physics-lab/
 Clone the repository:
 
 ```bash
-git clone https://github.com/AkshayTripathi4/jev-physics-lab.git
+git clone https://github.com/AkshayTripathiAI/jev-physics-lab.git
 ```
 
 Move into the project:
@@ -290,7 +284,7 @@ python jev_physics_lab.py --seconds 20 --fps 24
 
 The demo can run even when a Jev API key is not configured.
 
-If `TYPESAFE_API_KEY` is unavailable, the program uses deterministic-style fallback behavior based on the material and surface combination.
+If `TYPESAFE_API_KEY` is not set (or a Jev request fails or times out), the program uses a rule-based fallback: it picks a bounciness from a fixed range and a sound for each material/surface combination.
 
 This allows the physics simulation and GIF generation to be tested without making API requests.
 
@@ -412,10 +406,4 @@ API_KEY = os.environ.get("TYPESAFE_API_KEY")
 and configure the environment variable locally.
 
 If an API key is accidentally committed to a public repository, revoke/rotate it immediately.
-
----
-
-## License
-
-This project is intended as a small demonstration and experimentation project.
 
